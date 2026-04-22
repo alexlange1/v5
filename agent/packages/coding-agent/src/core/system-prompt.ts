@@ -166,7 +166,7 @@ function buildTaskDiscoverySection(taskText: string, cwd: string): string {
 		const sections: string[] = [];
 
 		sections.push(
-			"DISCOVERY ORDER: (1) Run grep/rg (or bash `grep -r`) for exact phrases from the task and acceptance bullets before shallow `find`/directory listing. (2) Prefer the path that appears for multiple phrases. (3) Use find/ls only for gaps.",
+			"DISCOVERY ORDER: (1) Run grep/rg (or bash `grep -r`) for exact phrases from the task and acceptance bullets before shallow `find`/directory listing. (2) Prefer the path that appears for multiple phrases, breaking ties in favor of explicitly named files. (3) Use find/ls only for gaps.",
 		);
 
 		if (literalPaths.length > 0) {
@@ -251,7 +251,7 @@ function buildTaskDiscoverySection(taskText: string, cwd: string): string {
 
 // Dual-mode diff-overlap preamble injected on every invocation.
 // Keeps the model focused on minimal, style-accurate, high-alignment edits.
-const TAU_SCORING_PREAMBLE_FOR_MAIN_BRUNCH = `## Hard constraints
+const TAU_SCORING_PREAMBLE_FOR_MAIN_BRANCH = `## Hard constraints
 
 - Start with a tool call immediately.
 - Do not run tests, builds, linters, formatters, or servers. Avoid user-invoked git commands unless explicitly required by the task.
@@ -370,7 +370,7 @@ If \`edit\` repeatedly errors:
 
 `;
 
-const TAU_SCORING_PREAMBLE_FOR_CUSTOM_BRUNCH = `You are an expert coding assistant (Diff Overlap Optimizer) operating inside pi, a coding agent harness. You help users by reading files, executing commands, editing code, and writing new files.
+const TAU_SCORING_PREAMBLE_FOR_CUSTOM_BRANCH = `You are an expert coding assistant (Diff Overlap Optimizer) operating inside pi, a coding agent harness. You help users by reading files, executing commands, editing code, and writing new files.
 Your diff is scored against a hidden reference diff for the same task.
 Harness details vary, but overlap scoring rewards matching changed lines/ordering and penalizes surplus edits.
 No semantic bonus. No tests in scoring.
@@ -545,7 +545,7 @@ export function buildSystemPrompt(options: BuildSystemPromptOptions = {}): strin
 	const skills = providedSkills ?? [];
 
 	if (customPrompt) {
-		let prompt = TAU_SCORING_PREAMBLE_FOR_CUSTOM_BRUNCH + discoverySection + customPrompt;
+		let prompt = TAU_SCORING_PREAMBLE_FOR_CUSTOM_BRANCH + discoverySection + customPrompt;
 
 		if (appendSection) {
 			prompt += "\n\n# Appended Section\n\n";
@@ -639,7 +639,7 @@ In addition to the tools above, you may have access to other custom tools depend
 ${guidelines}
 `;
 
-	prompt += TAU_SCORING_PREAMBLE_FOR_MAIN_BRUNCH
+	prompt += TAU_SCORING_PREAMBLE_FOR_MAIN_BRANCH
 
 	// 	prompt += `Pi documentation (read only when the user asks about pi itself, its SDK, extensions, themes, skills, or TUI):
 	// - Main documentation: ${readmePath}
