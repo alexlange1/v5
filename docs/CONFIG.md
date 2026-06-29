@@ -52,6 +52,11 @@ key prefixes separate concerns.
 |----------------------------------|----------------|-------------------------|
 | `count:{userId}:{YYYY-MM-DD}`    | integer count  | `COUNTER_TTL_SECONDS`   |
 | `spend:{YYYY-MM-DD}`             | float EUR est. | `COUNTER_TTL_SECONDS`   |
+
+> The `spend:` key uses a fixed **UTC** calendar day (not the user's local day) so
+> the global spend ceiling is a single shared bucket. The per-user `count:` key, by
+> contrast, uses the user's **local** day so the free allowance resets at their
+> local midnight.
 | `rl:{userId}:{epochMinute}`      | integer count  | `120s`                  |
 | `ent:{userId}`                   | `free`/`paid`  | `ENTITLEMENT_CACHE_TTL_SEC` |
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	  Sign in with Apple.
+
+	  Enables the optional, stronger identity described in docs/SECURITY.md: an
+	  anonymous per-install UUID is sybil-able (a reinstall / new device can mint a
+	  fresh free allowance), so the app may offer Sign in with Apple to obtain a
+	  stable, app-scoped `sub` to use as the `userId`. The backend already accepts
+	  "anonymous device UUID, or Apple sub" for `userId` (docs/API_CONTRACT.md), so
+	  enabling this entitlement is the only client-side prerequisite.
+	-->
+	<key>com.apple.developer.applesignin</key>
+	<array>
+		<string>Default</string>
+	</array>
+
+	<!--
+	  Keychain access group.
+
+	  The anonymous device id is stored in the Keychain (see Identity/Keychain.swift)
+	  under the service `app.gist.keychain`. A keychain-access-group lets the id be
+	  shared across the app and any future app extensions / sibling apps under the
+	  same App ID prefix.
+
+	  TODO: Replace `$(AppIdentifierPrefix)` is supplied automatically by Xcode at
+	  build time from your Team ID. Replace `app.gist` below if your bundle id
+	  differs. If you do not need a shared group, you may remove this whole key —
+	  the default per-app keychain still works without it.
+	-->
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)app.gist</string>
+	</array>
+</dict>
+</plist>

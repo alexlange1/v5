@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Info.plist for the Gist app target.
+
+  The XcodeGen spec sets GENERATE_INFOPLIST_FILE: false, so this file is the
+  full, authoritative Info.plist. Version values (CFBundleShortVersionString /
+  CFBundleVersion) are driven from the build settings (MARKETING_VERSION /
+  CURRENT_PROJECT_VERSION) via the $(...) substitutions below.
+
+  Notable entries:
+   • CFBundleDisplayName "Gist" — the home-screen name.
+   • ITSAppUsesNonExemptEncryption=false — we use only standard HTTPS/TLS, which
+     is exempt; this declares no non-exempt encryption so App Store Connect does
+     not prompt for export-compliance docs on every upload.
+   • UILaunchScreen — minimal SwiftUI launch screen (blank, system background).
+-->
+<plist version="1.0">
+<dict>
+	<!-- Identity -->
+	<key>CFBundleDisplayName</key>
+	<string>Gist</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+
+	<!-- Versioning (sourced from build settings). -->
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+
+	<!-- Localization -->
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+
+	<!-- Export compliance: only standard, exempt HTTPS/TLS is used. -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+
+	<!-- Scene / launch configuration (SwiftUI lifecycle). -->
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+	</dict>
+	<key>UILaunchScreen</key>
+	<dict/>
+
+	<!-- Supported orientations. -->
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+
+	<!-- Honor system light/dark appearance (the UI is dark-mode friendly). -->
+	<key>UIRequiresFullScreen</key>
+	<false/>
+</dict>
+</plist>

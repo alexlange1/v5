@@ -1,0 +1,36 @@
+{
+  // Strict, bundler-style TypeScript for a Cloudflare Worker. We never emit JS
+  // from tsc (wrangler/esbuild does the bundling); tsc is used purely for
+  // type-checking (`npm run typecheck`) and editor support.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+
+    // Workers runtime types + Node types (the latter for the vitest test files,
+    // which run under plain Node, not workerd).
+    "types": ["@cloudflare/workers-types", "node"],
+
+    // Strictness — every safety flag on.
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "exactOptionalPropertyTypes": false,
+    "forceConsistentCasingInFileNames": true,
+
+    // Interop / module ergonomics.
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": false,
+    "resolveJsonModule": true,
+
+    // We do not emit; skip lib checks for faster, dependency-tolerant builds.
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts", "vitest.config.ts"]
+}

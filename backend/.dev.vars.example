@@ -1,0 +1,21 @@
+# Local development secrets for `wrangler dev`.
+#
+# Copy this file to `.dev.vars` (which is gitignored) and fill in real values.
+# `.dev.vars` is loaded automatically by wrangler in local dev and overrides the
+# [vars] block in wrangler.toml. NEVER commit real keys.
+
+# OpenAI-compatible base URL. Default targets OpenRouter (Western infra).
+# Swap this (and the key below) to point at Together, a self-hosted vLLM, etc.
+MODEL_BASE_URL="https://openrouter.ai/api/v1"
+
+# Inference provider API key. NEVER shipped to the client. (e.g. sk-or-...)
+MODEL_API_KEY="REPLACE_WITH_MODEL_API_KEY"
+
+# RevenueCat SECRET REST key (server-side only). (e.g. sk_...)
+REVENUECAT_API_KEY="REPLACE_WITH_REVENUECAT_SECRET_REST_KEY"
+
+# The entitlement id that grants unlimited volume. Must match the iOS client.
+REVENUECAT_ENTITLEMENT_ID="premium"
+
+# Optional OpenRouter attribution header. Leave blank to omit it.
+MODEL_HTTP_REFERER="https://gist.app"

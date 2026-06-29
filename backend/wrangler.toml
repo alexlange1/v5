@@ -1,0 +1,48 @@
+# Cloudflare Worker configuration for the Gist backend.
+#
+# This file holds only NON-SECRET configuration. Secrets (the model API key and
+# the RevenueCat REST key) are NEVER committed here — set them with
+# `wrangler secret put` (see the comment at the bottom of this file).
+
+name = "gist-backend"
+main = "src/index.ts"
+
+# A recent Workers runtime compatibility date. Bump deliberately; do not float.
+compatibility_date = "2024-11-01"
+
+# ---------------------------------------------------------------------------
+# KV namespaces
+# ---------------------------------------------------------------------------
+# A single namespace is sufficient in v1; key prefixes separate concerns
+# (count:* / spend:* / rl:* / ent:* — see docs/CONFIG.md → "KV key scheme").
+#
+# TODO: create the namespace and paste its id below:
+#   wrangler kv namespace create COUNTERS
+# then replace REPLACE_WITH_KV_NAMESPACE_ID with the printed id. For a separate
+# preview/dev namespace, also set `preview_id`.
+[[kv_namespaces]]
+binding = "COUNTERS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID" # TODO: from `wrangler kv namespace create COUNTERS`
+# preview_id = "REPLACE_WITH_PREVIEW_KV_NAMESPACE_ID" # optional, for `wrangler dev`
+
+# ---------------------------------------------------------------------------
+# Plain (non-secret) environment variables
+# ---------------------------------------------------------------------------
+# These are safe to commit. They are overridable per environment. The OpenAI-
+# compatible base URL defaults to OpenRouter (Western infra — see the data
+# residency note in README.md / docs/SECURITY.md).
+[vars]
+MODEL_BASE_URL = "https://openrouter.ai/api/v1"
+REVENUECAT_ENTITLEMENT_ID = "premium"
+# Optional OpenRouter attribution header. Leave blank to omit it.
+MODEL_HTTP_REFERER = ""
+
+# ---------------------------------------------------------------------------
+# Secrets — DO NOT put these in [vars] and DO NOT commit them.
+# Set each one (per environment) with:
+#
+#   wrangler secret put MODEL_API_KEY        # inference provider key (e.g. sk-or-...)
+#   wrangler secret put REVENUECAT_API_KEY   # RevenueCat SECRET REST key (sk_...)
+#
+# Locally, copy `.dev.vars.example` to `.dev.vars` and fill it in instead.
+# ---------------------------------------------------------------------------
